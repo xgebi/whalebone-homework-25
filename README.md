@@ -1,6 +1,6 @@
 # whalebone-homework
 
-This template should help get you started developing with Vue 3 in Vite.
+Before evaluating, please, read [Notes.md](https://github.com/xgebi/whalebone-homework-25/blob/main/Notes.md).
 
 ## Recommended IDE Setup
 
