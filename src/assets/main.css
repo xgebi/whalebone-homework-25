@@ -1,0 +1,58 @@
+:root {
+  --off-white: antiquewhite;
+  --light-red: #ff8989;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+#app {
+  display: grid;
+  grid-template-columns: 1fr max-content 1fr;
+  grid-template-rows: 10rem max-content 1fr;
+  min-height: 100vh;
+  font-size: 1.25rem;
+}
+
+main {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+
+form {
+  gap: 1rem;
+}
+
+form,
+form section {
+  display: flex;
+  flex-direction: column;
+}
+
+input, button, select {
+  padding: .5rem 1rem;
+  font-size: 1.25rem;
+  border-radius: .5rem;
+  border: 1px solid grey;
+}
+
+input[type="text"] {
+  padding: .5rem 1rem;
+}
+
+input[type="submit"], button, select {
+  background: var(--off-white);
+}
+
+.error-box {
+  background: var(--light-red);
+  padding: 1rem;
+}
+
+tbody {
+  tr:nth-child(even) td {
+    background: var(--off-white);
+  }
+}
