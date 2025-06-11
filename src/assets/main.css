@@ -31,6 +31,11 @@ form section {
   flex-direction: column;
 }
 
+a {
+  display: inline-block;
+  margin-block: 1rem;
+}
+
 input, button, select {
   padding: .5rem 1rem;
   font-size: 1.25rem;
