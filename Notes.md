@@ -5,7 +5,7 @@
   - Option B: Create a simple app which can serve as a starting point
   - I've opted for B, mostly to keep myself in check, to remind myself not to cut too many corners
 - Two views vs Modal vs Hideable form
-  - I've chosen to do two screens because it felt the simplest solution 
+  - I've chosen to create two screens because it felt the simplest solution and had the least crowded markup template
 - Service-repository pattern is an overkill for a project this size. The reason why I added it anyway is because of my developer habits. It separates function calling the backend away from potential processing of the data. So the processing of the data can be tested separately. Unit testing repository functions is not as important.
 - Service-repository pattern is a personal preference for me, not a dogma.
 - Note in case I'm head-desking: /list endpoint returns `owner` but /save requires `owner_name`
