@@ -17,7 +17,7 @@
   - cons
     - A bit of an overkill for a small application
 - Validation of device types and operating system
-  - In ideal situation device types and operating systems would be fetched from the backend, but in this case they are hardcoded
+  - In ideal situation device types and operating systems would be fetched from the backend, but in this case they are hardcoded as there are no endpoints for that
   - There's no validation for device types and operating system, instead there are options for operating systems depending on which device type is selected. The default is considered laptop/PC.
 - Testing notes
   - I've chosen to test component and service because there the unit tests make the most sense
