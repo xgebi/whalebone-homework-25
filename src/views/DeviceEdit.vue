@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 import type { OutgoingDevice } from '@/interfaces/device.ts'
 import type { Errors } from '@/interfaces/errors.ts'
 
-const router = useRouter();
+const router = useRouter()
 
 const device = ref({
   hostname: '',
@@ -16,26 +16,30 @@ const device = ref({
 
 const errors: Errors = reactive({ list: [] })
 
-function checkDeviceCompat() {
-
+function deviceChanged() {
+  device.value.os_type = ''
 }
 
 async function formSubmitted(e: Event) {
   e.preventDefault()
-  errors.list = [];
+  errors.list = []
   Object.keys(device.value).forEach((key: string) => {
     if (device.value[key as keyof OutgoingDevice].length === 0) {
-      errors.list.push(key);
+      errors.list.push(key)
     }
   })
   if (errors.list.length === 0) {
-    await createDevice({
+    const result = await createDevice({
       hostname: device.value.hostname,
       device_type: device.value.device_type,
       os_type: device.value.os_type,
       owner_name: device.value.owner_name,
     })
-    await router.push('/')
+    if (result !== 'fail') {
+      await router.push('/')
+    } else {
+      errors.list = ['backend'];
+    }
   }
 }
 </script>
@@ -45,17 +49,44 @@ async function formSubmitted(e: Event) {
     <h1>Add new device</h1>
     <RouterLink to="/">Back to the list</RouterLink>
     <form @submit="formSubmitted">
-      <div data-testid="error-hostname" class="error-box" v-if="errors.list.indexOf('hostname') >= 0">Hostname is empty</div>
-      <div data-testid="error-device" class="error-box" v-if="errors.list.indexOf('device_type') >= 0">Device Type is empty</div>
-      <div data-testid="error-os" class="error-box" v-if="errors.list.indexOf('os_type') >= 0">OS Type is empty</div>
-      <div data-testid="error-owner" class="error-box" v-if="errors.list.indexOf('owner_name') >= 0">Owner Name is empty</div>
+      <div
+        data-testid="error-hostname"
+        class="error-box"
+        v-if="errors.list.indexOf('hostname') >= 0"
+      >
+        Hostname is empty
+      </div>
+      <div
+        data-testid="error-device"
+        class="error-box"
+        v-if="errors.list.indexOf('device_type') >= 0"
+      >
+        Device Type is empty
+      </div>
+      <div data-testid="error-os" class="error-box" v-if="errors.list.indexOf('os_type') >= 0">
+        OS Type is empty
+      </div>
+      <div
+        data-testid="error-owner"
+        class="error-box"
+        v-if="errors.list.indexOf('owner_name') >= 0"
+      >
+        Owner Name is empty
+      </div>
+      <div
+        data-testid="error-owner"
+        class="error-box"
+        v-if="errors.list.indexOf('backend') >= 0"
+      >
+        There was an error while communicating with backend
+      </div>
       <section>
         <label for="hostname">Hostname:</label>
         <input type="text" id="hostname" name="hostname" v-model="device.hostname" />
       </section>
       <section>
         <label for="deviceType">Device Type:</label>
-        <select id="deviceType" v-model="device.device_type" @change="checkDeviceCompat">
+        <select id="deviceType" v-model="device.device_type" @change="deviceChanged">
           <option></option>
           <option value="pc">PC</option>
           <option value="laptop">Laptop</option>
@@ -64,7 +95,7 @@ async function formSubmitted(e: Event) {
       </section>
       <section>
         <label for="osType">Operating System Type:</label>
-        <select id="osType" v-model="device.os_type" @change="checkDeviceCompat">
+        <select id="osType" v-model="device.os_type">
           <option></option>
           <option value="win" v-if="device.device_type !== 'mobile'">Windows</option>
           <option value="lin" v-if="device.device_type !== 'mobile'">Linux</option>

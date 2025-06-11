@@ -16,6 +16,9 @@
     - Follow Option B
   - cons
     - A bit of an overkill for a small application
+- Validation of device types and operating system
+  - In ideal situation device types and operating systems would be fetched from the backend, but in this case they are hardcoded
+  - There's no validation for device types and operating system, instead there are options for operating systems depending on which device type is selected. The default is considered laptop/PC.
 - Testing notes
   - I've chosen to test component and service because there the unit tests make the most sense
   - I've chosen not to test the views as I've hit limitations of what unit tests can do. If I were to set up tests for Views I'd opt for tools like Cypress or Playwright and had a mock backend.
